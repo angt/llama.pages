@@ -23,6 +23,7 @@
 
             <button
                 class="cursor-pointer"
+				aria-label={copied ? 'Copied command' : 'Copy command'}
                 onclick={handleCopy}
             >
                 {#if copied}

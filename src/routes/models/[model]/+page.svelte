@@ -86,7 +86,9 @@
 			class="divide-foreground/10 border-foreground/10 bg-foreground/[0.02] w-full divide-y rounded-2xl border"
 		>
 			{#each repos as repo (repo.id)}
-				<div class="flex items-center justify-between gap-4 px-3.5 py-3">
+				<div
+					class="flex flex-col gap-3 px-3.5 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+				>
 					<div class="flex items-center gap-2.5">
 						<img
 							src={repo.avatarUrl}
@@ -111,7 +113,7 @@
 						</a>
 					</div>
 					{#if repo.quants.length > 0}
-						<div class="flex h-7 items-center gap-2">
+						<div class="flex h-7 items-center gap-2 self-start sm:self-auto">
 							<select
 								value={quantFor(repo)}
 								onchange={(e) => (selectedQuants[repo.id] = e.currentTarget.value)}

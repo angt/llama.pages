@@ -100,7 +100,7 @@
 		</div>
 
 		<div
-			class="text-foreground/60 mt-2 flex w-full max-w-2xl items-center justify-center gap-2 text-xs"
+			class="text-foreground/60 mt-2 flex w-full max-w-2xl flex-col items-center justify-center gap-1 text-xs sm:flex-row sm:gap-2"
 		>
 			<span>
 				Prefer Brew or Winget?
@@ -113,7 +113,7 @@
 					Package managers
 				</a>
 			</span>
-			<span class="text-foreground/40">·</span>
+			<span class="text-foreground/40 hidden sm:inline">·</span>
 			<span>
 				Rather build from source?
 				<a

@@ -52,9 +52,17 @@
 	];
 
 	let copied = $state(false);
+	let isWindows = $state(false);
+	const installCommand = $derived(
+		isWindows ? 'irm https://llama.app/install.ps1 | iex' : 'curl -LsSf https://llama.app/install.sh | bash'
+	);
+
+	$effect(() => {
+		isWindows = navigator.userAgent.toLowerCase().includes('windows');
+	});
 
 	async function handleCopy() {
-		navigator.clipboard.writeText('curl -fsSL https://llama.app/install.sh | bash');
+		navigator.clipboard.writeText(installCommand);
 		toast.success('Copied to clipboard!');
 		copied = true;
 		setTimeout(() => {
@@ -82,9 +90,7 @@
 
 		<div class="bg-foreground/[0.04] w-full max-w-2xl rounded-xl">
 			<div class="flex items-center justify-between gap-4 px-6 py-5">
-				<code class="text-foreground/90 font-mono text-[15px]"
-					>curl -fsSL https://llama.app/install.sh | bash</code
-				>
+				<code class="text-foreground/90 font-mono text-[15px]">{installCommand}</code>
 				<button
 					class="text-foreground/70 hover:text-foreground cursor-pointer"
 					aria-label={copied ? 'Copied command' : 'Copy command'}

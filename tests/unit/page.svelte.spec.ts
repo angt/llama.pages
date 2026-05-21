@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import HomePage from '../../src/routes/+page.svelte';
 
-const INSTALL_COMMAND = 'curl -LsSf https://llama.app/install.sh | bash';
+const INSTALL_COMMAND = 'curl -LsSf https://llama.app/install.sh | sh';
 
 describe('+page.svelte', () => {
 	it('renders install command and package manager link', async () => {

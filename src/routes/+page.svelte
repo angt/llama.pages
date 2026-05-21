@@ -54,7 +54,7 @@
 	let copied = $state(false);
 	let isWindows = $state(false);
 	const installCommand = $derived(
-		isWindows ? 'irm https://llama.app/install.ps1 | iex' : 'curl -LsSf https://llama.app/install.sh | bash'
+		isWindows ? 'irm https://llama.app/install.ps1 | iex' : 'curl -LsSf https://llama.app/install.sh | sh'
 	);
 
 	$effect(() => {

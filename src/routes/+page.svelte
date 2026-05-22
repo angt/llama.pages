@@ -158,7 +158,7 @@
 llama serve
 
 <span class="opacity-50"># 2. Install the pi-llama plugin</span>
-pi install github.com/huggingface/pi-llama
+pi install git:huggingface/pi-llama
 
 <span class="opacity-50"># 3. Run Pi, everything is set</span>
 pi</code

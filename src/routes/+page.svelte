@@ -54,7 +54,9 @@
 	let copied = $state(false);
 	let isWindows = $state(false);
 	const installCommand = $derived(
-		isWindows ? 'irm https://llama.app/install.ps1 | iex' : 'curl -LsSf https://llama.app/install.sh | sh'
+		isWindows
+			? 'irm https://llama.app/install.ps1 | iex'
+			: 'curl -LsSf https://llama.app/install.sh | sh'
 	);
 
 	$effect(() => {
@@ -155,7 +157,10 @@
 					><span class="opacity-50"># 1. Serve a model</span>
 llama serve
 
-<span class="opacity-50"># 2. Run Pi, it will autodiscover it</span>
+<span class="opacity-50"># 2. Install the pi-llama plugin</span>
+pi install github.com/huggingface/pi-llama
+
+<span class="opacity-50"># 3. Run Pi, everything is set</span>
 pi</code
 				></pre>
 			<div

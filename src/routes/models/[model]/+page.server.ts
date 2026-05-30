@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 import { MODELS, getModel } from '$lib/models';
 import type { PageServerLoad, EntryGenerator } from './$types';
 
@@ -6,6 +7,11 @@ export const prerender = true;
 
 const ORG_MIN_FOLLOWERS = 1000;
 const USER_MIN_FOLLOWERS = 5000;
+
+// Authenticate HF API calls during prerender so the build stays under the rate limit.
+const HF_HEADERS: Record<string, string> = env.HF_TOKEN
+	? { Authorization: `Bearer ${env.HF_TOKEN}` }
+	: {};
 
 export const entries: EntryGenerator = () => {
 	return MODELS.map((m) => ({ model: m.slug }));
@@ -64,7 +70,8 @@ function absoluteAvatarUrl(url: string): string {
 
 async function fetchAuthorInfo(name: string): Promise<AuthorInfo | null> {
 	const orgRes = await fetch(
-		`https://huggingface.co/api/organizations/${encodeURIComponent(name)}/overview`
+		`https://huggingface.co/api/organizations/${encodeURIComponent(name)}/overview`,
+		{ headers: HF_HEADERS }
 	);
 	if (orgRes.ok) {
 		const data = (await orgRes.json()) as AuthorOverview;
@@ -73,7 +80,8 @@ async function fetchAuthorInfo(name: string): Promise<AuthorInfo | null> {
 			: null;
 	}
 	const userRes = await fetch(
-		`https://huggingface.co/api/users/${encodeURIComponent(name)}/overview`
+		`https://huggingface.co/api/users/${encodeURIComponent(name)}/overview`,
+		{ headers: HF_HEADERS }
 	);
 	if (userRes.ok) {
 		const data = (await userRes.json()) as AuthorOverview;
@@ -95,7 +103,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 		`&limit=100&expand[]=author&expand[]=likes&expand[]=siblings`;
 	let repos: Repo[] = [];
 	try {
-		const res = await fetch(url);
+		const res = await fetch(url, { headers: HF_HEADERS });
 		if (res.ok) {
 			const data = (await res.json()) as HfModel[];
 			const authors = [...new Set(data.map((m) => m.author))];

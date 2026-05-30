@@ -57,9 +57,9 @@ export const MODELS: Model[] = [
 		description: "OpenAI's open weights. Frontier reasoning, local."
 	},
 	{
-		id: 'stepfun-ai/Step-3.5-Flash',
-		slug: 'Step-3.5-Flash',
-		name: 'Step-3.5-Flash',
+		id: 'stepfun-ai/Step-3.7-Flash',
+		slug: 'Step-3.7-Flash',
+		name: 'Step-3.7-Flash',
 		params: 'Flash variant',
 		description: 'Snappy generalist for everyday chat and writing.'
 	}

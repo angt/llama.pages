@@ -41,7 +41,6 @@ jobs:
       - name: Build static site
         run: npm run build
         env:
-          # Authenticates HF API calls during prerender so the build stays under the API rate limit.
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
       - name: Setup Pages
         uses: actions/configure-pages@v5

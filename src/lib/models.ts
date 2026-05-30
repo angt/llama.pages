@@ -60,7 +60,7 @@ export const MODELS: Model[] = [
 		id: 'stepfun-ai/Step-3.7-Flash',
 		slug: 'Step-3.7-Flash',
 		name: 'Step-3.7-Flash',
-		params: 'Flash variant',
+		params: '198B MoE · 11B active',
 		description: 'Snappy generalist for everyday chat and writing.'
 	}
 ];

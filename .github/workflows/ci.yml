@@ -16,6 +16,7 @@ jobs:
   test:
     name: Run tests
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -30,6 +31,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # `playwright install --with-deps` runs apt under `sudo --` (env not preserved); on the
+      # Ubuntu 24.04 runner its needrestart hook prompts interactively and hangs the job. Force
+      # needrestart into automatic mode via its config file so the apt install never blocks.
+      - name: Disable needrestart interactive prompts
+        run: echo "\$nrconf{restart} = 'a';" | sudo tee /etc/needrestart/conf.d/99-ci.conf
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps

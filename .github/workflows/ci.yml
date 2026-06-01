@@ -17,6 +17,11 @@ jobs:
     name: Run tests
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Run in the official Playwright image so browsers come preinstalled: `playwright install`
+    # hangs at 100% downloading from the CDN on the hosted runner. Tag must match the
+    # @playwright/test version in package-lock.json.
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
 
     steps:
       - name: Checkout
@@ -31,24 +36,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      # `playwright install --with-deps` runs apt under `sudo --` (env not preserved); on the
-      # Ubuntu 24.04 runner its needrestart hook prompts interactively and hangs the job. Force
-      # needrestart into automatic mode via its config file so the apt install never blocks.
-      - name: Disable needrestart interactive prompts
-        run: echo "\$nrconf{restart} = 'a';" | sudo tee /etc/needrestart/conf.d/99-ci.conf
-
-      # Only Chromium is needed (the e2e config defines no projects, so tests run on the default
-      # Chromium), which avoids the Firefox/WebKit downloads. Each attempt is wrapped in a timeout
-      # plus retry because Playwright's CDN download can stall with no progress and no error, which
-      # otherwise hangs the job until the timeout.
-      - name: Install Playwright (chromium)
-        run: |
-          for i in 1 2 3; do
-            timeout 240 npx playwright install --with-deps chromium && exit 0
-            echo "::warning::playwright install attempt $i stalled or failed, retrying"
-          done
-          exit 1
 
       - name: Run tests
         run: npm test

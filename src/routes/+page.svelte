@@ -145,11 +145,15 @@
 		<img
 			src="/local-ai.png"
 			alt="AI running on your computer"
+			width="1024"
+			height="730"
 			class="h-auto w-full rounded-xl dark:hidden"
 		/>
 		<img
 			src="/local-ai-dark.png"
 			alt="AI running on your computer"
+			width="1504"
+			height="1086"
 			class="hidden h-auto w-full rounded-xl dark:block"
 		/>
 	</section>

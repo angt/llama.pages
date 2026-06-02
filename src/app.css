@@ -7,8 +7,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-	/* The site is light-only; tell the browser so native controls (selects, options,
-	   scrollbars) aren't rendered with the OS dark theme, e.g. on Firefox. */
 	color-scheme: light;
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);

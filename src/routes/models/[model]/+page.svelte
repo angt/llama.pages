@@ -69,7 +69,7 @@
 			alt="{repoAuthor(model.id)} avatar"
 			class="mb-3 size-10 rounded-md"
 		/>
-		<h1 class="text-foreground text-2xl font-semibold tracking-tight">{model.name}</h1>
+		<h1 class="text-foreground text-2xl font-semibold">{model.name}</h1>
 		<div class="mt-1.5 mb-3">
 			<span
 				class="bg-foreground/8 text-foreground/70 inline-block rounded-md px-1.5 py-0.5 font-mono text-xs"
